@@ -20,21 +20,28 @@ def loadData(name, num_components=None, preprocessing="standard"):
     if name  in ["IP", "DIP", "DIPr"]:
         data = sio.loadmat(os.path.join(data_path, 'indian_pines_corrected.mat'))['indian_pines_corrected']
         labels = sio.loadmat(os.path.join(data_path, 'indian_pines_gt.mat'))['indian_pines_gt']
+        num_class = 16
     elif name == 'SV':
         data = sio.loadmat(os.path.join(data_path, 'salinas_corrected.mat'))['salinas_corrected']
         labels = sio.loadmat(os.path.join(data_path, 'salinas_gt.mat'))['salinas_gt']
+        num_class = 16
     elif name  in ["UP", "DUP", "DUPr"]:
         data = sio.loadmat(os.path.join(data_path, 'paviaU.mat'))['paviaU']
         labels = sio.loadmat(os.path.join(data_path, 'paviaU_gt.mat'))['paviaU_gt']
+        num_class = 9
     elif name == 'UH':
         data = sio.loadmat(os.path.join(data_path, 'houston.mat'))['houston']
         labels = sio.loadmat(os.path.join(data_path, 'houston_gt.mat'))['houston_gt_tr']
         labels += sio.loadmat(os.path.join(data_path, 'houston_gt.mat'))['houston_gt_te']
         num_class = 15
+    elif name == 'KSC':
+        data = sio.loadmat(os.path.join(data_path, 'KSC.mat'))['KSC']
+        labels = sio.loadmat(os.path.join(data_path, 'KSC_gt.mat'))['KSC_gt']
+        num_class = 13
     else:
         print("NO DATASET")
         exit()
-    num_class = 15 if name == "UH" else 9 if name in ["UP", "DUP", "DUPr"] else 16
+        
     shapeor = data.shape
     data = data.reshape(-1, data.shape[-1])
     if num_components != None:
